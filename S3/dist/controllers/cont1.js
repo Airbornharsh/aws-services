@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createBucket = void 0;
+exports.addFiles = exports.createBucket = void 0;
 const uuid_1 = require("uuid");
 const fs_1 = __importDefault(require("fs"));
 const createBucket = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,3 +32,17 @@ const createBucket = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.createBucket = createBucket;
+const addFiles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return res.status(200).json({
+            message: "Files Added",
+        });
+    }
+    catch (e) {
+        console.error(e);
+        return res.status(200).json({
+            message: e.message,
+        });
+    }
+});
+exports.addFiles = addFiles;

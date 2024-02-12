@@ -19,3 +19,16 @@ export const createBucket: RequestHandler = async (req, res) => {
     });
   }
 };
+
+export const addFiles: RequestHandler = async (req, res) => {
+  try {
+    return res.status(200).json({
+      message: "Files Added",
+    });
+  } catch (e: any) {
+    console.error(e);
+    return res.status(200).json({
+      message: e.message,
+    });
+  }
+};
