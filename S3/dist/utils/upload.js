@@ -17,8 +17,8 @@ const storage = multer_1.default.diskStorage({
             if (folder) {
                 if (!fs_1.default.existsSync(temp + folder)) {
                     fs_1.default.mkdirSync(temp + folder);
-                    temp += folder + "/";
                 }
+                temp += folder + "/";
             }
         });
         const destinationFolder = "Buckets/" + req.params.bucketId + "/" + filePath;

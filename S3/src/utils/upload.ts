@@ -13,8 +13,8 @@ const storage = multer.diskStorage({
       if (folder) {
         if (!fs.existsSync(temp + folder)) {
           fs.mkdirSync(temp + folder);
-          temp += folder + "/";
         }
+        temp += folder + "/";
       }
     });
     const destinationFolder = "Buckets/" + req.params.bucketId + "/" + filePath;
