@@ -44,7 +44,6 @@ export const getFiles: RequestHandler = async (req, res) => {
     const files = getAllFiles(bucketPath);
 
     const fileDatas = files.map((file) => {
-      const fileData = fs.readFileSync(file);
       return {
         file: file.split("/").slice(2).join("/"),
         fileName: file.split("/").pop(),
@@ -70,9 +69,10 @@ export const getFileUrl: RequestHandler = async (req, res) => {
       req.query.path && typeof req.query.path === "string"
         ? req.query.path
         : "";
+    console.log(req.params);
 
     return res.status(200).json({
-      url: `http://localhost:4001/download-file/${req.params.bucketId}?path=${filePath}`,
+      url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
     });
   } catch (e: any) {
     console.error(e);

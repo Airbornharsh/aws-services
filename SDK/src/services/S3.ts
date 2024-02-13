@@ -50,6 +50,18 @@ class Harsh_S3 {
     }
   }
 
+  async getFileUrl(bucketId: string, path: string) {
+    try {
+      const data = await fetch(
+        `http://localhost:4001/api/url/${bucketId}?path=${path}`
+      );
+      const parsedData = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
+
   async getAllFiles(bucketId: string) {
     try {
       const data = await fetch(

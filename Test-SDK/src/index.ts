@@ -27,4 +27,9 @@ const getAllFiles = async () => {
   console.log(files);
 };
 
-uploadFile();
+const getFileUrl = async () => {
+  const { url } = await s3.getFileUrl(bucketId, "test.txt");
+  console.log(url);
+};
+
+getFileUrl();

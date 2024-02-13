@@ -17,7 +17,7 @@ routes.get("/", (req, res) => {
 routes.post("/create-bucket", createBucket);
 routes.put("/add-files/:bucketId", upload.single("file"), addFiles);
 routes.get("/get-files/:bucketId", getFiles);
-routes.get("/url/:bucketyId", getFileUrl);
+routes.get("/url/:bucketId", getFileUrl);
 routes.get("/download-file/:bucketId", downloadFile);
 routes.delete("/delete-file/:bucketId", deleteFile);
 
