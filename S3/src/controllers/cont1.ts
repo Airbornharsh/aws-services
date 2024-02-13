@@ -61,6 +61,24 @@ export const getFiles: RequestHandler = async (req, res) => {
   }
 };
 
+export const getFileUrl: RequestHandler = async (req, res) => {
+  try {
+    const filePath =
+      req.query.path && typeof req.query.path === "string"
+        ? req.query.path
+        : "";
+
+    return res.status(200).json({
+      url: `http://localhost:4001/download-file/${req.params.bucketId}?path=${filePath}`,
+    });
+  } catch (e: any) {
+    console.error(e);
+    return res.status(200).json({
+      message: e.message,
+    });
+  }
+}
+
 export const downloadFile: RequestHandler = async (req, res) => {
   try {
     const filePath =
