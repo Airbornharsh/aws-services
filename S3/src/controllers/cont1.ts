@@ -89,3 +89,30 @@ export const downloadFile: RequestHandler = async (req, res) => {
     });
   }
 };
+
+export const deleteFile: RequestHandler = async (req, res) => {
+  try {
+    const filePath =
+      req.query.path && typeof req.query.path === "string"
+        ? req.query.path
+        : "";
+
+    fs.unlinkSync(
+      path.join(
+        __dirname,
+        "/../../",
+        `Buckets/${req.params.bucketId}/`,
+        filePath
+      )
+    );
+
+    return res.status(200).json({
+      message: "File Deleted",
+    });
+  } catch (e: any) {
+    console.error(e);
+    return res.status(200).json({
+      message: e.message,
+    });
+  }
+};
