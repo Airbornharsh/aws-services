@@ -18,7 +18,8 @@ const uploadFile = async () => {
   const file = new File([buffer], fileName, {
     type: "application/octet-stream",
   });
-  await s3.uploadFile(file, bucketId, "", "test.txt");
+  const { url, message } = await s3.uploadFile(file, bucketId, "", "test.txt");
+  console.log(url, message);
 };
 
 const getAllFiles = async () => {
@@ -26,4 +27,4 @@ const getAllFiles = async () => {
   console.log(files);
 };
 
-getAllFiles();
+uploadFile();

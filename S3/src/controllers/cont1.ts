@@ -26,6 +26,9 @@ export const addFiles: RequestHandler = async (req, res) => {
   try {
     return res.status(200).json({
       message: "Files Added",
+      url: `http://localhost:4001/buckets/${req.params.bucketId}/${
+        req.query.path
+      }/${req.query.filename ? req.query.filename : req.file?.originalname}`,
     });
   } catch (e: any) {
     console.error(e);
@@ -77,7 +80,7 @@ export const getFileUrl: RequestHandler = async (req, res) => {
       message: e.message,
     });
   }
-}
+};
 
 export const downloadFile: RequestHandler = async (req, res) => {
   try {
