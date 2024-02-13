@@ -24,10 +24,6 @@ const uploadFile = async () => {
 const getAllFiles = async () => {
   const { files, message } = await s3.getAllFiles(bucketId);
   console.log(files);
-  files.forEach((file: { file: string; fileName: string; data: string }) => {
-    const filePath = path.join(__dirname, file.file);
-    fs.writeFileSync(filePath, file.data);
-  });
 };
 
 getAllFiles();

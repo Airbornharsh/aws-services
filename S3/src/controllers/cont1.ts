@@ -37,14 +37,15 @@ export const addFiles: RequestHandler = async (req, res) => {
 
 export const getFiles: RequestHandler = async (req, res) => {
   try {
-    const files = getAllFiles(`buckets/${req.params.bucketId}`);
+    const bucketPath = `buckets/${req.params.bucketId}`;
+    const files = getAllFiles(bucketPath);
 
     const fileDatas = files.map((file) => {
       const fileData = fs.readFileSync(file);
       return {
         file: file.split("/").slice(2).join("/"),
         fileName: file.split("/").pop(),
-        data: fileData.toString("utf-8"),
+        url: `http://localhost:4001/${file}`,
       };
     });
 
