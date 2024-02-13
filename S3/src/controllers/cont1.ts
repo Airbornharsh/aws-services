@@ -8,7 +8,7 @@ export const createBucket: RequestHandler = async (req, res) => {
   try {
     const id = uuidv4();
 
-    fs.mkdirSync(`Buckets/${id}`);
+    fs.mkdirSync(`buckets/${id}`);
 
     return res.status(200).json({
       bucketId: id,
@@ -37,7 +37,7 @@ export const addFiles: RequestHandler = async (req, res) => {
 
 export const getFiles: RequestHandler = async (req, res) => {
   try {
-    const files = getAllFiles(`Buckets/${req.params.bucketId}`);
+    const files = getAllFiles(`buckets/${req.params.bucketId}`);
 
     const fileDatas = files.map((file) => {
       const fileData = fs.readFileSync(file);
@@ -71,7 +71,7 @@ export const downloadFile: RequestHandler = async (req, res) => {
       path.join(
         __dirname,
         "/../../",
-        `Buckets/${req.params.bucketId}/`,
+        `buckets/${req.params.bucketId}/`,
         filePath
       ),
       {
@@ -101,7 +101,7 @@ export const deleteFile: RequestHandler = async (req, res) => {
       path.join(
         __dirname,
         "/../../",
-        `Buckets/${req.params.bucketId}/`,
+        `buckets/${req.params.bucketId}/`,
         filePath
       )
     );

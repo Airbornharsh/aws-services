@@ -5,7 +5,7 @@ import path from "path";
 
 dotenv.config();
 const app = express();
-app.use("/Buckets", express.static(path.join(__dirname, "/../", "Buckets")));
+app.use("/buckets", express.static(path.join(__dirname, "/../", "buckets")));
 const port = process.env.PORT || 3000;
 
 app.use("/api", routes);

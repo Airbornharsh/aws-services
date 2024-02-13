@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
     const filePath =
       req.query.path && typeof req.query.path == "string" ? req.query.path : "";
     const filePaths = filePath.split("/");
-    let temp = "Buckets/" + req.params.bucketId + "/";
+    let temp = "buckets/" + req.params.bucketId + "/";
     filePaths.forEach((folder) => {
       if (folder) {
         if (!fs.existsSync(temp + folder)) {
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         temp += folder + "/";
       }
     });
-    const destinationFolder = "Buckets/" + req.params.bucketId + "/" + filePath;
+    const destinationFolder = "buckets/" + req.params.bucketId + "/" + filePath;
     cb(null, destinationFolder);
   },
   filename: function (req, file, cb) {
