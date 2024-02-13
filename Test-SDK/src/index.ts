@@ -5,6 +5,11 @@ import path from "path";
 const s3 = new Harsh_S3("harsh", "harsh");
 const bucketId = "59722c6f-de9e-4073-b4a7-e30a33991570";
 
+const createBucket = async () => {
+  const { bucketId, message } = await s3.createBucket();
+  console.log(bucketId, message);
+};
+
 const uploadFile = async () => {
   const fileName = "index.ts";
   const filePath = "src/" + fileName;

@@ -12,6 +12,18 @@ class Harsh_S3 {
     this.secret = secret;
   }
 
+  async createBucket() {
+    try {
+      const data = await fetch("http://localhost:4001/api/create-bucket", {
+        method: "POST",
+      });
+      const parsedData = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
+
   async uploadFile(
     file: File,
     bucketId: string,
