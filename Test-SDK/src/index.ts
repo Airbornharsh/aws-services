@@ -32,4 +32,13 @@ const getFileUrl = async () => {
   console.log(url);
 };
 
-getFileUrl();
+// const downloadFile = async () => {
+//   await s3.downloadFile(bucketId, "test.txt");
+// };
+
+const deleteFile = async () => {
+  const { message } = await s3.deleteFile(bucketId, "test.txt");
+  console.log(message);
+};
+
+deleteFile();

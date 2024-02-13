@@ -127,7 +127,6 @@ export const deleteFile: RequestHandler = async (req, res) => {
         filePath
       )
     );
-
     return res.status(200).json({
       message: "File Deleted",
     });

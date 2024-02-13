@@ -73,6 +73,34 @@ class Harsh_S3 {
       console.error(e);
     }
   }
+
+  //   async downloadFile(bucketId: string, path: string) {
+  //     try {
+  //       const data = await fetch(
+  //         `http://localhost:4001/api/download-file/${bucketId}?path=${path}`
+  //       );
+  //       console.log(await data.blob());
+  //       // const parsedData = await data.json();
+  //       // return parsedData;
+  //     } catch (e: any) {
+  //       console.error(e);
+  //     }
+  //   }
+
+  async deleteFile(bucketId: string, path: string) {
+    try {
+      const data = await fetch(
+        `http://localhost:4001/api/delete-file/${bucketId}?path=${path}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const parsedData = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
 }
 
 export { Harsh_S3 };
