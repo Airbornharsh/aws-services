@@ -4,9 +4,7 @@ import multer from "multer";
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const filePath =
-      req.headers.path && typeof req.headers.path == "string"
-        ? req.headers.path
-        : "";
+      req.query.path && typeof req.query.path == "string" ? req.query.path : "";
     const filePaths = filePath.split("/");
     let temp = "Buckets/" + req.params.bucketId + "/";
     filePaths.forEach((folder) => {
@@ -23,8 +21,8 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const filename =
-      req.headers.filename && typeof req.headers.filename === "string"
-        ? req.headers.filename
+      req.query.filename && typeof req.query.filename === "string"
+        ? req.query.filename
         : file.originalname;
     cb(null, filename);
   },
