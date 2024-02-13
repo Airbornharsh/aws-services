@@ -16,7 +16,6 @@ const storage = multer.diskStorage({
       }
     });
     const destinationFolder = "Buckets/" + req.params.bucketId + "/" + filePath;
-    console.log(destinationFolder);
     cb(null, destinationFolder);
   },
   filename: function (req, file, cb) {

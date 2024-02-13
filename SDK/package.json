@@ -1,0 +1,29 @@
+{
+  "name": "harsh-aws-sdk",
+  "version": "1.4.0",
+  "description": "This is the sdk for the services which can be accessed from frontend",
+  "main": "out/index.js",
+  "module": "out/index.m.js",
+  "unpkg": "out/index.umd.js",
+  "types": "out/index.d.ts",
+  "exports": {
+    "require": "./out/index.js",
+    "default": "./out/index.modern.js"
+  },
+  "scripts": {
+    "build": "rm -rf out && microbundle --tsconfig tsconfig.json --no-sourcemap",
+    "dev": "microbundle --watch --tsconfig tsconfig.json --no-sourcemap"
+  },
+  "author": "Harsh Keshri",
+  "files": [
+    "out"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.15.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "axios": "^1.6.7"
+  }
+}
