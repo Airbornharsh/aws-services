@@ -10,6 +10,7 @@ export interface Table {
   };
   attributes:
     | {
+        [key: string]: string;
         type: string;
         name: string;
       }[]
@@ -17,6 +18,5 @@ export interface Table {
   items?:
     | {
         [key: string]: any;
-      }[]
-    | [];
+      }[];
 }
