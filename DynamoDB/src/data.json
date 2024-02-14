@@ -92,5 +92,33 @@
         "location": "Near"
       }
     ]
+  },
+  "users": {
+    "partitionKey": {
+      "name": "id",
+      "type": "string"
+    },
+    "sortKey": {
+      "name": "email",
+      "type": "string"
+    },
+    "attributes": [
+      {
+        "type": "number",
+        "name": "age"
+      }
+    ],
+    "items": [
+      {
+        "id": "1",
+        "email": "harshkeshri@gmail.com",
+        "age": 25
+      },
+      {
+        "id": "2",
+        "email": "harshkeshri@gmail.com",
+        "age": 25
+      }
+    ]
   }
 }

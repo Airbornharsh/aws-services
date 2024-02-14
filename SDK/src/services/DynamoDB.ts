@@ -67,7 +67,7 @@ class Harsh_DynamoDB {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(item),
+          body: JSON.stringify({ item }),
         }
       );
       const parsedData = await data.json();
@@ -82,21 +82,10 @@ class Harsh_DynamoDB {
     }
   }
 
-  async updateItem(
-    tableName: string,
-    partitionKey: string,
-    sortKey: string,
-    item: { [key: string]: any }
-  ) {
+  async updateItem(tableName: string, item: { [key: string]: any }) {
     try {
       if (!tableName) {
         throw new Error("Table name is required");
-      }
-      if (!partitionKey) {
-        throw new Error("Partition key is required");
-      }
-      if (!sortKey) {
-        throw new Error("Sort key is required");
       }
       if (!item) {
         throw new Error("Item is required");
@@ -109,11 +98,7 @@ class Harsh_DynamoDB {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            item: {
-              partitionKey,
-              sortKey,
-              ...item,
-            },
+            item,
           }),
         }
       );
@@ -172,15 +157,15 @@ class Harsh_DynamoDB {
     }
   }
 
-  async queryItems(tableName: string, query: { [key: string]: any }) {
+  async queryItems(tableName: string, query?: { [key: string]: any }) {
     try {
       if (!tableName) {
         throw new Error("Table name is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/query/${tableName}?${new URLSearchParams(
-          query
-        )}`
+        `http://localhost:4003/api/query/${tableName}${
+          query ? `?${new URLSearchParams(query)}` : ""
+        }`
       );
       const parsedData: {
         items: { [key: string]: any }[];
