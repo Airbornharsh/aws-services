@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 
 export const uploadFunction: RequestHandler = async (req, res) => {
@@ -10,8 +11,40 @@ export const uploadFunction: RequestHandler = async (req, res) => {
       });
     }
     return res.status(200).json({
-      fileName: file.filename,
+      lambda: file.filename,
       message: "File Uploaded",
+    });
+  } catch (e: any) {
+    console.error(e);
+    return res.status(200).json({
+      message: e.message,
+    });
+  }
+};
+
+export const uploadFunctionData: RequestHandler = async (req, res) => {
+  try {
+    const { fileData } = req.body;
+    if (!fileData) {
+      throw new Error("No file data found");
+    }
+    if (typeof fileData !== "string") {
+      throw new Error("Invalid file data");
+    }
+    if (!fs.existsSync("buckets")) {
+      fs.mkdirSync("buckets");
+    }
+    if (!fs.existsSync("buckets/lambda")) {
+      fs.mkdirSync("buckets/lambda");
+    }
+    if (fs.existsSync("buckets/lambda/javascript")) {
+      fs.mkdirSync("buckets/lambda/javascript");
+    }
+    const lambda = "lambda-" + uuidv4() + ".js";
+    fs.writeFileSync(`buckets/lambda/javascript/${lambda}`, fileData);
+    return res.status(200).json({
+      lambda,
+      message: "Data Uploaded",
     });
   } catch (e: any) {
     console.error(e);
