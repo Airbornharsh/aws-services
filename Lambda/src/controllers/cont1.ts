@@ -46,6 +46,12 @@ export const executionHandler: RequestHandler = async (req, res) => {
       throw new Error("Lambda Not Found");
     }
     const lambdaData = s3Data.file.data;
+    if (!lambdaData) {
+      throw new Error("Lambda Not Found");
+    }
+    if (lambdaData.includes("..") || lambdaData.includes("~")) {
+      throw new Error("Bad Practice");
+    }
     fs.writeFileSync(lambdaPath, lambdaData);
     if (!fs.existsSync(lambdaPath)) {
       throw new Error("Lambda Not Found");
