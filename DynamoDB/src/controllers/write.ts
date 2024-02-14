@@ -302,3 +302,39 @@ export const updateItem: RequestHandler = (req, res) => {
     return res.status(500).json({ message: e.message });
   }
 };
+
+export const deleteItem: RequestHandler = (req, res) => {
+  try {
+    const { tableName, partitionKey, sortKey } = req.params;
+    const data: { [key: string]: Table } = parseData();
+    if (!tableName) {
+      throw new Error("Table name is required");
+    }
+    if (!partitionKey) {
+      throw new Error("Partition key is required");
+    }
+    if (!sortKey) {
+      throw new Error("Sort key is required");
+    }
+    if (!Object.keys(data).includes(tableName)) {
+      throw new Error("Table does not exist");
+    }
+    if (!data[tableName].items) {
+      throw new Error("Table does not have any items");
+    }
+    const itemIndex: number =
+      data[tableName].items?.findIndex(
+        (item) =>
+          item[data[tableName].partitionKey.name] === partitionKey &&
+          item[data[tableName].sortKey.name] === sortKey
+      ) || 0;
+    if (itemIndex === -1) {
+      throw new Error("Item does not exist");
+    }
+    data[tableName].items?.splice(itemIndex, 1);
+    writeData(data);
+    return res.json({ message: "Item deleted successfully" });
+  } catch (e: any) {
+    return res.status(500).json({ message: e.message });
+  }
+};
