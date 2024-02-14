@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addItem, createTable, updateTable } from "./controllers/cont1";
+import { addItem, createTable, updateItem, updateTable } from "./controllers/cont1";
 
 const routes = Router();
 
@@ -9,6 +9,6 @@ routes.get("/", (req, res) => {
 routes.post("/create-table", createTable);
 // routes.put("/update-table/:tableName", updateTable);
 routes.put("/add-item/:tableName", addItem);
-routes.patch("/add-item/:tableName", addItem);
+routes.patch("/update-item/:tableName", updateItem);
 
 export default routes;

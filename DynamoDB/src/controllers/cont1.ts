@@ -203,3 +203,102 @@ export const addItem: RequestHandler = (req, res) => {
     return res.status(500).json({ message: e.message });
   }
 };
+
+export const updateItem: RequestHandler = (req, res) => {
+  try {
+    const { tableName } = req.params;
+    const { item } = req.body;
+    if (!tableName) {
+      throw new Error("Table name is required");
+    }
+    if (!item) {
+      throw new Error("Item is required");
+    }
+    const data: { [key: string]: Table } = parseData();
+    if (!item[data[tableName].partitionKey.name]) {
+      throw new Error("Partition key is required in item");
+    }
+    if (!item[data[tableName].sortKey.name]) {
+      throw new Error("Sort key is required in item");
+    }
+    if (!Object.keys(data).includes(tableName)) {
+      throw new Error("Table does not exist");
+    }
+    if (!data[tableName].items) {
+      throw new Error("Table does not have any items");
+    }
+    if (data[tableName].partitionKey.type === "number") {
+      if (typeof item[data[tableName].partitionKey.name] !== "number") {
+        throw new Error(
+          `${data[tableName].partitionKey.name} should be of type number`
+        );
+      }
+    }
+    if (data[tableName].sortKey.type === "number") {
+      if (typeof item[data[tableName].sortKey.name] !== "number") {
+        throw new Error(
+          `${data[tableName].sortKey.name} should be of type number`
+        );
+      }
+    }
+    if (data[tableName].partitionKey.type === "string") {
+      if (typeof item[data[tableName].partitionKey.name] !== "string") {
+        throw new Error(
+          `${data[tableName].partitionKey.name} should be of type string`
+        );
+      }
+    }
+    if (data[tableName].sortKey.type === "string") {
+      if (typeof item[data[tableName].sortKey.name] !== "string") {
+        throw new Error(
+          `${data[tableName].sortKey.name} should be of type string`
+        );
+      }
+    }
+    const existingItem = data[tableName].items?.find(
+      (existingItem) =>
+        existingItem[data[tableName].partitionKey.name] ===
+          item[data[tableName].partitionKey.name] &&
+        existingItem[data[tableName].sortKey.name] ===
+          item[data[tableName].sortKey.name]
+    );
+    if (!existingItem) {
+      throw new Error("Item does not exist");
+    }
+    data[tableName].attributes.forEach(
+      (att: { name: string; type: string }) => {
+        if (!item[att.name]) {
+          return;
+        }
+        if (att.type === "number") {
+          if (typeof item[att.name] !== "number") {
+            throw new Error(`${att.name} should be of type number`);
+          }
+        } else if (att.type === "string") {
+          if (typeof item[att.name] !== "string") {
+            throw new Error(`${att.name} should be of type string`);
+          }
+        } else if (att.type === "boolean") {
+          if (typeof item[att.name] !== "boolean") {
+            throw new Error(`${att.name} should be of type boolean`);
+          }
+        } else if (att.type === "string[]") {
+          if (!Array.isArray(item[att.name])) {
+            throw new Error(`${att.name} should be of type string[]`);
+          }
+        } else if (att.type === "number[]") {
+          if (!Array.isArray(item[att.name])) {
+            throw new Error(`${att.name} should be of type number[]`);
+          }
+        } else {
+          throw new Error(`${att.type} is not a valid type`);
+        }
+        existingItem[att.name] = item[att.name];
+      }
+    );
+    writeData(data);
+    return res.json({ message: "Item updated successfully" });
+  } catch (e: any) {
+    return res.status(500).json({ message: e.message });
+  }
+};
