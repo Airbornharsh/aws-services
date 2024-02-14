@@ -24,11 +24,22 @@ export const createBucket: RequestHandler = async (req, res) => {
 
 export const addFiles: RequestHandler = async (req, res) => {
   try {
+    const fileName: string =
+      req.query.filename && typeof req.query.filename === "string"
+        ? req.query.filename!
+        : req.file?.originalname!;
+    const filePath = path.join(
+      req.query.path && typeof req.query.path === "string"
+        ? req.query.path
+        : "",
+      fileName
+    );
+
     return res.status(200).json({
       message: "Files Added",
-      url: `http://localhost:4001/buckets/${req.params.bucketId}/${
-        req.query.path
-      }/${req.query.filename ? req.query.filename : req.file?.originalname}`,
+      url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
+      fileName: fileName,
+      filePath: filePath,
     });
   } catch (e: any) {
     console.error(e);
