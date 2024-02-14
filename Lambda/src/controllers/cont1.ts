@@ -14,6 +14,15 @@ export const executionHandler: RequestHandler = async (req, res) => {
     if (typeof lambda !== "string") {
       throw new Error("Invalid Lambda Name Provided");
     }
+    if (
+      lambda.includes("/") ||
+      lambda.includes("\\") ||
+      lambda.includes("..") ||
+      lambda.includes("~") ||
+      lambda.includes(" ")
+    ) {
+      throw new Error("Invalid Lambda Name Provided");
+    }
     const type = lambda.split(".").pop();
     if (type !== "js") {
       throw new Error("Invalid Lambda Type");
