@@ -21,7 +21,7 @@ class Harsh_S3 {
       const parsedData = await data.json();
       return parsedData;
     } catch (e: any) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 
@@ -52,7 +52,7 @@ class Harsh_S3 {
       };
       return uploadedFile;
     } catch (e: any) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 
@@ -64,7 +64,7 @@ class Harsh_S3 {
       const parsedData = await data.json();
       return parsedData;
     } catch (e: any) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 
@@ -74,7 +74,7 @@ class Harsh_S3 {
         `http://localhost:4001/api/get-files/${bucketId}`
       );
       const parsedData = await data.json();
-      return parsedData.files.map(
+      const files: FileType[] = parsedData.files.map(
         (file: { name: string; path: string; url: string }) => {
           const tempFile: FileType = {
             name: file.name,
@@ -84,8 +84,16 @@ class Harsh_S3 {
           return tempFile;
         }
       );
+      if (!files) {
+        return [] as FileType[];
+      }
+      if (files.length > 0) {
+        return files;
+      } else {
+        return [] as FileType[];
+      }
     } catch (e: any) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 
@@ -113,7 +121,7 @@ class Harsh_S3 {
       const parsedData = await data.json();
       return parsedData;
     } catch (e: any) {
-      console.error(e);
+      throw new Error(e);
     }
   }
 }
