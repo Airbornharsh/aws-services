@@ -56,7 +56,6 @@ export const uploadFunctionData: RequestHandler = async (req, res) => {
 
 export const getLamdaFucntion: RequestHandler = async (req, res) => {
   try {
-    console.log(req);
     const lambda = req.query.lambda;
     if (!lambda) {
       throw new Error("No lambda Provided");
@@ -73,7 +72,6 @@ export const getLamdaFucntion: RequestHandler = async (req, res) => {
       throw new Error("Lambda Not Found");
     }
     const data = fs.readFileSync(lambdaPath, "utf-8");
-    console.log(data);
     return res.status(200).json({
       message: "Hello World",
       file: {

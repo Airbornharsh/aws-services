@@ -1,0 +1,67 @@
+{
+  "harsh": {
+    "partitionKey": {
+      "type": "string",
+      "name": "p"
+    },
+    "sortKey": {
+      "type": "string",
+      "name": "s"
+    },
+    "attributes": [
+      {
+        "type": "string",
+        "name": "age"
+      },
+      {
+        "type": "string",
+        "name": "name"
+      },
+      {
+        "type": "string",
+        "name": "email"
+      }
+    ],
+    "items": [
+      {
+        "p": "harsh",
+        "s": "harsh",
+        "age": "25",
+        "name": "harsh",
+        "email": "harshkeshri@gmail.com"
+      },
+      {
+        "p": "harsh",
+        "s": "harsh",
+        "age": "25",
+        "name": "harsh",
+        "email": "harshkeshri2@gmail.com"
+      }
+    ]
+  },
+  "harsh1": {
+    "partitionKey": {
+      "name": "p",
+      "type": "string"
+    },
+    "sortKey": {
+      "name": "s",
+      "type": "string"
+    },
+    "attributes": [
+      {
+        "type": "string",
+        "name": "age"
+      },
+      {
+        "type": "string",
+        "name": "name"
+      },
+      {
+        "type": "string",
+        "name": "email"
+      }
+    ],
+    "items": []
+  }
+}

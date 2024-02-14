@@ -41,7 +41,6 @@ const lambdaStorage = multer.diskStorage({
     if (!fs.existsSync("buckets/lambda")) {
       fs.mkdirSync("buckets/lambda");
     }
-    console.log(file);
     const type = file.originalname.split(".").pop();
     if (type === "js") {
       if (!fs.existsSync("buckets/lambda/javascript")) {

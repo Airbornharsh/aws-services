@@ -82,8 +82,6 @@ export const getFileUrl: RequestHandler = async (req, res) => {
       req.query.path && typeof req.query.path === "string"
         ? req.query.path
         : "";
-    console.log(req.params);
-
     return res.status(200).json({
       url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
     });
