@@ -8,19 +8,15 @@ export interface Table {
     name: string;
     type: string;
   };
-  attributes?:
-    | [
-        {
-          type: string;
-          name: string;
-        }
-      ]
+  attributes:
+    | {
+        type: string;
+        name: string;
+      }[]
     | [];
   items?:
-    | [
-        {
-          [key: string]: any;
-        }
-      ]
+    | {
+        [key: string]: any;
+      }[]
     | [];
 }

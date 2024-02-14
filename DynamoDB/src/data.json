@@ -50,7 +50,7 @@
     },
     "attributes": [
       {
-        "type": "string",
+        "type": "number",
         "name": "age"
       },
       {
@@ -60,6 +60,10 @@
       {
         "type": "string",
         "name": "email"
+      },
+      {
+        "type": "string",
+        "name": "location"
       }
     ],
     "items": []
