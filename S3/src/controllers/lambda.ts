@@ -37,7 +37,7 @@ export const uploadFunctionData: RequestHandler = async (req, res) => {
     if (!fs.existsSync("buckets/lambda")) {
       fs.mkdirSync("buckets/lambda");
     }
-    if (fs.existsSync("buckets/lambda/javascript")) {
+    if (!fs.existsSync("buckets/lambda/javascript")) {
       fs.mkdirSync("buckets/lambda/javascript");
     }
     const lambda = "lambda-" + uuidv4() + ".js";

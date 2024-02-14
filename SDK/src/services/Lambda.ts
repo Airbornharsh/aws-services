@@ -29,6 +29,25 @@ class Harsh_Lambda {
       throw new Error(e);
     }
   }
+
+  async uploadData(fileData: string) {
+    try {
+      const data = await fetch("http://localhost:4001/api/upload-lambda-data", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileData }),
+      });
+      const parsedData: {
+        lambda: string;
+        message: string;
+      } = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
 
 export { Harsh_Lambda };

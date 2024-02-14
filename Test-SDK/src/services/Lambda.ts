@@ -14,3 +14,9 @@ export const uploadFunction = async () => {
   const res = await Lambda.uploadFile(file);
   console.log(res.lambda);
 };
+
+export const uploadFunctionData = async () => {
+  const data = "console.log('Hello World')";
+  const res = await Lambda.uploadData(data);
+  console.log(res.lambda);
+};
