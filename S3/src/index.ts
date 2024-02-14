@@ -9,8 +9,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/buckets", express.static(path.join(__dirname, "/../", "buckets")));
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4001;
 
+app.get("/", (req, res) => {
+  return res.json({ message: "Hello World" });
+});
 app.use("/api", routes);
 
 app.listen(port, () => {
