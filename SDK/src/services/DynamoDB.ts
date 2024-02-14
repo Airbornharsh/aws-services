@@ -32,7 +32,18 @@ class Harsh_DynamoDB {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ tableName, partitionKey, sortKey, attributes }),
+        body: JSON.stringify({
+          tableName,
+          partitionKey: {
+            name: partitionKey,
+            type: "string",
+          },
+          sortKey: {
+            name: sortKey,
+            type: "string",
+          },
+          attributes,
+        }),
       });
       await data.json();
       return { message: `Table ${tableName} created` };
@@ -62,6 +73,53 @@ class Harsh_DynamoDB {
       const parsedData = await data.json();
       return {
         message: `Item added to ${tableName}`,
+        item: parsedData.item as {
+          [key: string]: any;
+        },
+      };
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
+
+  async updateItem(
+    tableName: string,
+    partitionKey: string,
+    sortKey: string,
+    item: { [key: string]: any }
+  ) {
+    try {
+      if (!tableName) {
+        throw new Error("Table name is required");
+      }
+      if (!partitionKey) {
+        throw new Error("Partition key is required");
+      }
+      if (!sortKey) {
+        throw new Error("Sort key is required");
+      }
+      if (!item) {
+        throw new Error("Item is required");
+      }
+      const data = await fetch(
+        `http://localhost:4003/api/update-item/${tableName}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            item: {
+              partitionKey,
+              sortKey,
+              ...item,
+            },
+          }),
+        }
+      );
+      const parsedData = await data.json();
+      return {
+        message: `Item updated in ${tableName}`,
         item: parsedData.item as {
           [key: string]: any;
         },
