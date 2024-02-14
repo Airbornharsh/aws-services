@@ -6,6 +6,7 @@ import path from "path";
 
 export const createBucket: RequestHandler = async (req, res) => {
   try {
+    if (!fs.existsSync("buckets")) fs.mkdirSync("buckets");
     const id = uuidv4();
 
     fs.mkdirSync(`buckets/${id}`);
