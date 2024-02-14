@@ -171,6 +171,25 @@ class Harsh_DynamoDB {
       throw new Error(e);
     }
   }
+
+  async queryItems(tableName: string, query: { [key: string]: any }) {
+    try {
+      if (!tableName) {
+        throw new Error("Table name is required");
+      }
+      const data = await fetch(
+        `http://localhost:4003/api/query/${tableName}?${new URLSearchParams(
+          query
+        )}`
+      );
+      const parsedData: {
+        items: { [key: string]: any }[];
+      } = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
 
 export { Harsh_DynamoDB };
