@@ -6,6 +6,6 @@ const routes = Router();
 routes.get("/", (req, res) => {
   return res.json({ message: "Hello World" });
 });
-routes.post("/exec", executionHandler);
+routes.post("/execute-lambda", executionHandler);
 
 export default routes;

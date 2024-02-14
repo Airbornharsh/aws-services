@@ -48,6 +48,25 @@ class Harsh_Lambda {
       throw new Error(e);
     }
   }
+
+  async executeLambda(lambda: string) {
+    try {
+      const data = await fetch(
+        `http://localhost:4002/api/execute-lambda?lambda=${lambda}`,
+        {
+          method: "POST",
+          body: "",
+        }
+      );
+      const parsedData: {
+        message: string;
+        output: string;
+      } = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
 
 export { Harsh_Lambda };

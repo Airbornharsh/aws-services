@@ -20,3 +20,10 @@ export const uploadFunctionData = async () => {
   const res = await Lambda.uploadData(data);
   console.log(res.lambda);
 };
+
+export const executeLambda = async () => {
+  const res = await Lambda.executeLambda(
+    "lambda-b47960bf-95a2-4ff7-bb0d-d62831bc1003.js"
+  );
+  console.log(res.output);
+};

@@ -1,10 +1,12 @@
-import { uploadFunction, uploadFunctionData } from "./services/Lambda";
+import {
+  executeLambda,
+} from "./services/Lambda";
 
 const main = async () => {
   // await getAllFiles();
   // await deleteFile(mainFiles[0]);
   // await uploadFile();
-  await uploadFunctionData();
+  await executeLambda();
 };
 
 main();
