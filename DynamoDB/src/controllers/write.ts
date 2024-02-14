@@ -331,9 +331,10 @@ export const deleteItem: RequestHandler = (req, res) => {
     if (itemIndex === -1) {
       throw new Error("Item does not exist");
     }
+    const item = data[tableName].items![itemIndex];
     data[tableName].items?.splice(itemIndex, 1);
     writeData(data);
-    return res.json({ message: "Item deleted successfully" });
+    return res.json({ message: "Item deleted successfully", item });
   } catch (e: any) {
     return res.status(500).json({ message: e.message });
   }
