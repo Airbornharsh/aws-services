@@ -8,6 +8,7 @@ routes.get("/", (req, res) => {
 });
 routes.post("/create-table", createTable);
 // routes.put("/update-table/:tableName", updateTable);
+routes.put("/add-item/:tableName", addItem);
 routes.patch("/add-item/:tableName", addItem);
 
 export default routes;
