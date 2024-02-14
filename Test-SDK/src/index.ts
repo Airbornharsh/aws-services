@@ -24,6 +24,7 @@ const uploadFile = async () => {
   });
   const uploadedFile = await s3.uploadFile(file, bucketId, "", "test.txt");
   mainFile = uploadedFile;
+  console.log(uploadedFile);
 };
 
 const getAllFiles = async () => {
@@ -45,10 +46,22 @@ const deleteFile = async (data: FileType | string) => {
   console.log(message);
 };
 
+const uploadFunction = async () => {
+  const fileName = "test.js";
+  const filePath = "" + fileName;
+  const data = fs.readFileSync(filePath);
+  const buffer = Buffer.from(data);
+  const file = new File([buffer], fileName, {
+    type: "application/octet-stream",
+  });
+  await s3.uploadFuction(file);
+};
+
 const main = async () => {
   // await getAllFiles();
   // await deleteFile(mainFiles[0]);
   // await uploadFile();
+  await uploadFunction();
 };
 
 main();

@@ -56,6 +56,23 @@ class Harsh_S3 {
     }
   }
 
+  async uploadFuction(file: File) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("filename", file.name);
+
+      const data = await fetch(`http://localhost:4001/api/upload-lambda`, {
+        method: "PUT",
+        body: formData,
+      });
+      const parsedData = await data.json();
+      console.log(parsedData);
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
+
   async getFileUrl(bucketId: string, path: string) {
     try {
       const data = await fetch(
