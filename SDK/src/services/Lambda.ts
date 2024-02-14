@@ -16,7 +16,7 @@ class Harsh_Lambda {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const data = await fetch("http://localhost:4001/api/upload-lambda", {
+      const data = await fetch(`${process.env.S3_URI}/api/upload-lambda`, {
         method: "PUT",
         body: formData,
       });
@@ -32,7 +32,7 @@ class Harsh_Lambda {
 
   async uploadData(fileData: string) {
     try {
-      const data = await fetch("http://localhost:4001/api/upload-lambda-data", {
+      const data = await fetch(`${process.env.S3_URI}/api/upload-lambda-data`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -52,7 +52,7 @@ class Harsh_Lambda {
   async executeLambda(lambda: string) {
     try {
       const data = await fetch(
-        `http://localhost:4002/api/execute-lambda?lambda=${lambda}`,
+        `${process.env.LAMBDA_URI}/api/execute-lambda?lambda=${lambda}`,
         {
           method: "POST",
           body: "",

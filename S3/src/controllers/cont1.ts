@@ -39,7 +39,7 @@ export const addFiles: RequestHandler = async (req, res) => {
     return res.status(200).json({
       message: "Files Added",
       file: {
-        url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
+        url: `${process.env.S3_URI}/buckets/${req.params.bucketId}/${filePath}`,
         name: fileName,
         path: filePath,
       },
@@ -61,7 +61,7 @@ export const getFiles: RequestHandler = async (req, res) => {
       return {
         path: file.split("/").slice(2).join("/"),
         name: file.split("/").pop(),
-        url: `http://localhost:4001/${file}`,
+        url: `${process.env.S3_URI}/${file}`,
       };
     });
 
@@ -84,7 +84,7 @@ export const getFileUrl: RequestHandler = async (req, res) => {
         ? req.query.path
         : "";
     return res.status(200).json({
-      url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
+      url: `${process.env.S3_URI}/buckets/${req.params.bucketId}/${filePath}`,
     });
   } catch (e: any) {
     console.error(e);

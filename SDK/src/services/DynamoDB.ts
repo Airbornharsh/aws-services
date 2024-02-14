@@ -27,7 +27,7 @@ class Harsh_DynamoDB {
       if (attributes.length === 0) {
         throw new Error("Attributes are required");
       }
-      const data = await fetch("http://localhost:4003/api/create-table", {
+      const data = await fetch(`${process.env.DYANMODB_URI}/api/create-table`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class Harsh_DynamoDB {
         throw new Error("Item is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/put-item/${tableName}`,
+        `${process.env.DYANMODB_URI}/api/put-item/${tableName}`,
         {
           method: "PUT",
           headers: {
@@ -91,7 +91,7 @@ class Harsh_DynamoDB {
         throw new Error("Item is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/update-item/${tableName}`,
+        `${process.env.DYANMODB_URI}/api/update-item/${tableName}`,
         {
           method: "PATCH",
           headers: {
@@ -123,7 +123,7 @@ class Harsh_DynamoDB {
         throw new Error("Partition key is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/items/${tableName}/${partitionKey}`
+        `${process.env.DYANMODB_URI}/api/items/${tableName}/${partitionKey}`
       );
       const parsedData: {
         items: { [key: string]: any }[];
@@ -146,7 +146,7 @@ class Harsh_DynamoDB {
         throw new Error("Sort key is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/item/${tableName}/${partitionKey}/${sortKey}`
+        `${process.env.DYANMODB_URI}/api/item/${tableName}/${partitionKey}/${sortKey}`
       );
       const parsedData: {
         item: { [key: string]: any };
@@ -163,7 +163,7 @@ class Harsh_DynamoDB {
         throw new Error("Table name is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/query/${tableName}${
+        `${process.env.DYANMODB_URI}/api/query/${tableName}${
           query ? `?${new URLSearchParams(query)}` : ""
         }`
       );
@@ -188,7 +188,7 @@ class Harsh_DynamoDB {
         throw new Error("Sort key is required");
       }
       const data = await fetch(
-        `http://localhost:4003/api/${tableName}/${partitionKey}/${sortKey}`,
+        `${process.env.DYANMODB_URI}/api/${tableName}/${partitionKey}/${sortKey}`,
         {
           method: "DELETE",
         }

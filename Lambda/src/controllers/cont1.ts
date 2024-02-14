@@ -33,7 +33,7 @@ export const executionHandler: RequestHandler = async (req, res) => {
     }
     const lambdaPath = `temp/javascript/${lambda}`;
     const s3Res = await fetch(
-      `http://localhost:4001/api/get-lambda?lambda=${lambda}`,
+      `${process.env.S3_URI}/api/get-lambda?lambda=${lambda}`,
       {
         method: "GET",
       }

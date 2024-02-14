@@ -15,7 +15,7 @@ class Harsh_S3 {
 
   async createBucket() {
     try {
-      const data = await fetch("http://localhost:4001/api/create-bucket", {
+      const data = await fetch(`${process.env.S3_UR}/api/create-bucket`, {
         method: "POST",
       });
       const parsedData = await data.json();
@@ -38,7 +38,7 @@ class Harsh_S3 {
       formData.append("filename", filename);
 
       const data = await fetch(
-        `http://localhost:4001/api/add-files/${bucketId}?path=${path}&filename=${filename}`,
+        `${process.env.S3_URI}/api/add-files/${bucketId}?path=${path}&filename=${filename}`,
         {
           method: "PUT",
           body: formData,
@@ -62,7 +62,7 @@ class Harsh_S3 {
       formData.append("file", file);
       formData.append("filename", file.name);
 
-      const data = await fetch(`http://localhost:4001/api/upload-lambda`, {
+      const data = await fetch(`${process.env.S3_URI}/api/upload-lambda`, {
         method: "PUT",
         body: formData,
       });
@@ -76,7 +76,7 @@ class Harsh_S3 {
   async getFileUrl(bucketId: string, path: string) {
     try {
       const data = await fetch(
-        `http://localhost:4001/api/url/${bucketId}?path=${path}`
+        `${process.env.S3_URI}/api/url/${bucketId}?path=${path}`
       );
       const parsedData = await data.json();
       return parsedData;
@@ -88,7 +88,7 @@ class Harsh_S3 {
   async getAllFiles(bucketId: string) {
     try {
       const data = await fetch(
-        `http://localhost:4001/api/get-files/${bucketId}`
+        `${process.env.S3_URI}/api/get-files/${bucketId}`
       );
       const parsedData = await data.json();
       const files: FileType[] = parsedData.files.map(
@@ -117,7 +117,7 @@ class Harsh_S3 {
   //   async downloadFile(bucketId: string, path: string) {
   //     try {
   //       const data = await fetch(
-  //         `http://localhost:4001/api/download-file/${bucketId}?path=${path}`
+  //         `${process.env.S3_URI}/api/download-file/${bucketId}?path=${path}`
   //       );
   //       console.log(await data.blob());
   //       // const parsedData = await data.json();
@@ -132,14 +132,14 @@ class Harsh_S3 {
       let data;
       if (typeof file === "string") {
         data = await fetch(
-          `http://localhost:4001/api/delete-file/${bucketId}?path=${file}`,
+          `${process.env.S3_URI}/api/delete-file/${bucketId}?path=${file}`,
           {
             method: "DELETE",
           }
         );
       } else {
         data = await fetch(
-          `http://localhost:4001/api/delete-file/${bucketId}?path=${file.path}`,
+          `${process.env.S3_URI}/api/delete-file/${bucketId}?path=${file.path}`,
           {
             method: "DELETE",
           }
