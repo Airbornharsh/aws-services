@@ -110,14 +110,24 @@ class Harsh_S3 {
   //     }
   //   }
 
-  async deleteFile(bucketId: string, path: string) {
+  async deleteFile(bucketId: string, file: FileType | string) {
     try {
-      const data = await fetch(
-        `http://localhost:4001/api/delete-file/${bucketId}?path=${path}`,
-        {
-          method: "DELETE",
-        }
-      );
+      let data;
+      if (typeof file === "string") {
+        data = await fetch(
+          `http://localhost:4001/api/delete-file/${bucketId}?path=${file}`,
+          {
+            method: "DELETE",
+          }
+        );
+      } else {
+        data = await fetch(
+          `http://localhost:4001/api/delete-file/${bucketId}?path=${file.path}`,
+          {
+            method: "DELETE",
+          }
+        );
+      }
       const parsedData = await data.json();
       return parsedData;
     } catch (e: any) {
