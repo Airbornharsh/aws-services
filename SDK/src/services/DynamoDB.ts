@@ -128,6 +128,49 @@ class Harsh_DynamoDB {
       throw new Error(e);
     }
   }
+
+  async getItems(tableName: string, partitionKey: string) {
+    try {
+      if (!tableName) {
+        throw new Error("Table name is required");
+      }
+      if (!partitionKey) {
+        throw new Error("Partition key is required");
+      }
+      const data = await fetch(
+        `http://localhost:4003/api/items/${tableName}/${partitionKey}`
+      );
+      const parsedData: {
+        items: { [key: string]: any }[];
+      } = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
+
+  async getItem(tableName: string, partitionKey: string, sortKey: string) {
+    try {
+      if (!tableName) {
+        throw new Error("Table name is required");
+      }
+      if (!partitionKey) {
+        throw new Error("Partition key is required");
+      }
+      if (!sortKey) {
+        throw new Error("Sort key is required");
+      }
+      const data = await fetch(
+        `http://localhost:4003/api/item/${tableName}/${partitionKey}/${sortKey}`
+      );
+      const parsedData: {
+        item: { [key: string]: any };
+      } = await data.json();
+      return parsedData;
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
 
 export { Harsh_DynamoDB };
