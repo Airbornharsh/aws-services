@@ -40,6 +40,36 @@ class Harsh_DynamoDB {
       throw new Error(e);
     }
   }
+
+  async putItem(tableName: string, item: { [key: string]: any }) {
+    try {
+      if (!tableName) {
+        throw new Error("Table name is required");
+      }
+      if (!item) {
+        throw new Error("Item is required");
+      }
+      const data = await fetch(
+        `http://localhost:4003/api/put-item/${tableName}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(item),
+        }
+      );
+      const parsedData = await data.json();
+      return {
+        message: `Item added to ${tableName}`,
+        item: parsedData.item as {
+          [key: string]: any;
+        },
+      };
+    } catch (e: any) {
+      throw new Error(e);
+    }
+  }
 }
 
 export { Harsh_DynamoDB };

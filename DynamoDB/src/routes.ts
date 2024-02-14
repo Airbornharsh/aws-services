@@ -1,8 +1,8 @@
 import { Router } from "express";
 import {
-  addItem,
   createTable,
   deleteItem,
+  putItem,
   updateItem,
 } from "./controllers/write";
 import { getItem, getItems, queryItems } from "./controllers/read";
@@ -14,7 +14,7 @@ routes.get("/", (req, res) => {
 });
 routes.post("/create-table", createTable);
 // routes.put("/update-table/:tableName", updateTable);
-routes.put("/add-item/:tableName", addItem);
+routes.put("/put-item/:tableName", putItem);
 routes.patch("/update-item/:tableName", updateItem);
 routes.get("/items/:tableName/:partitionKey", getItems);
 routes.get("/item/:tableName/:partitionKey/:sortKey", getItem);

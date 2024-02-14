@@ -97,7 +97,7 @@ export const updateTable: RequestHandler = (req, res) => {
   }
 };
 
-export const addItem: RequestHandler = (req, res) => {
+export const putItem: RequestHandler = (req, res) => {
   try {
     const { tableName } = req.params;
     const { item } = req.body;
@@ -198,7 +198,7 @@ export const addItem: RequestHandler = (req, res) => {
     );
     data[tableName].items?.push(newItem);
     writeData(data);
-    return res.json({ message: "Item added successfully" });
+    return res.json({ message: "Item added successfully", item: newItem });
   } catch (e: any) {
     return res.status(500).json({ message: e.message });
   }
