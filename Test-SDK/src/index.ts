@@ -18,12 +18,12 @@ const uploadFile = async () => {
   const file = new File([buffer], fileName, {
     type: "application/octet-stream",
   });
-  const { url, message } = await s3.uploadFile(file, bucketId, "", "test.txt");
-  console.log(url, message);
+  const uploadedFile = await s3.uploadFile(file, bucketId, "", "test.txt");
+  console.log(uploadedFile?.url);
 };
 
 const getAllFiles = async () => {
-  const { files, message } = await s3.getAllFiles(bucketId);
+  const files = await s3.getAllFiles(bucketId);
   console.log(files);
 };
 
@@ -41,4 +41,4 @@ const deleteFile = async () => {
   console.log(message);
 };
 
-deleteFile();
+getAllFiles();

@@ -37,9 +37,11 @@ export const addFiles: RequestHandler = async (req, res) => {
 
     return res.status(200).json({
       message: "Files Added",
-      url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
-      fileName: fileName,
-      filePath: filePath,
+      file: {
+        url: `http://localhost:4001/buckets/${req.params.bucketId}/${filePath}`,
+        name: fileName,
+        path: filePath,
+      },
     });
   } catch (e: any) {
     console.error(e);
@@ -56,8 +58,8 @@ export const getFiles: RequestHandler = async (req, res) => {
 
     const fileDatas = files.map((file) => {
       return {
-        file: file.split("/").slice(2).join("/"),
-        fileName: file.split("/").pop(),
+        path: file.split("/").slice(2).join("/"),
+        name: file.split("/").pop(),
         url: `http://localhost:4001/${file}`,
       };
     });

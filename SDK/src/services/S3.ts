@@ -1,3 +1,4 @@
+import { FileType } from "../types/FileType";
 class Harsh_S3 {
   private key: string;
   private secret: string;
@@ -44,7 +45,12 @@ class Harsh_S3 {
         }
       );
       const parsedData = await data.json();
-      return parsedData;
+      const uploadedFile: FileType = {
+        name: parsedData.file.name,
+        path: parsedData.file.path,
+        url: parsedData.file.url,
+      };
+      return uploadedFile;
     } catch (e: any) {
       console.error(e);
     }
@@ -68,7 +74,16 @@ class Harsh_S3 {
         `http://localhost:4001/api/get-files/${bucketId}`
       );
       const parsedData = await data.json();
-      return parsedData;
+      return parsedData.files.map(
+        (file: { name: string; path: string; url: string }) => {
+          const tempFile: FileType = {
+            name: file.name,
+            path: file.path,
+            url: file.url,
+          };
+          return tempFile;
+        }
+      );
     } catch (e: any) {
       console.error(e);
     }
