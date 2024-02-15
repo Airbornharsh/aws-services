@@ -15,7 +15,6 @@ app.get("/", (req, res) => {
   return res.json({ message: "Hello World" });
 });
 app.use("/api", routes);
-
 app.listen(port, () => {
   console.log("Connected to S3 Port at ", port);
 });
